@@ -1,0 +1,393 @@
+/* Main container */
+.game-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Left Section */
+.left-section {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border-right: 3px solid white;
+  padding: 35px;
+  gap: 35px;
+}
+
+/* Right Section */
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  gap: 35px;
+}
+
+/* Player Info */
+.player-info {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+.player-name, .player-score {
+  border: 3px solid white;
+  padding: 26px 44px;
+  background-color: rgba(139, 69, 19, 0.3);
+  font-weight: bold;
+  font-size: 32px;
+  min-width: 210px;
+  text-align: center;
+}
+
+/* Game Board */
+.game-board {
+  flex: 1;
+  border: 3px solid white;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(160, 82, 45, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+/* Player Cards */
+.player-cards {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  width: 100%;
+}
+
+.player2-cards {
+  align-self: flex-start;
+}
+
+.player1-cards {
+  align-self: flex-end;
+}
+
+.card-slot {
+  width: 126px;
+  height: 189px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  overflow: visible;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  border-radius: 12px;
+  position: relative;
+}
+
+.card-slot:hover {
+  transform: translateY(-9px);
+}
+
+.card-slot.selected {
+  transform: translateY(-15px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  border: 3px solid #00ff00;
+}
+
+.card-slot.selected:hover {
+  transform: translateY(-15px);
+}
+
+.card-slot.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.card-slot.disabled:hover {
+  transform: translateY(-9px);
+  opacity: 0.8;
+}
+
+.card-slot.disabled.selected {
+  transform: translateY(-15px);
+  opacity: 0.8;
+}
+
+.card-slot.disabled.selected:hover {
+  transform: translateY(-15px);
+  opacity: 0.9;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  user-select: none;
+  transition: all 0.8s ease-in-out;
+}
+
+/* Moving card animation */
+.card-slot.moving-to-center-up {
+  position: absolute;
+  z-index: 1000;
+  animation: moveCardToCenterUp 0.8s ease-in-out forwards;
+}
+
+.card-slot.moving-to-center-down {
+  position: absolute;
+  z-index: 1000;
+  animation: moveCardToCenterDown 0.8s ease-in-out forwards;
+}
+
+@keyframes moveCardToCenter {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(50vh - 50% - 105px));
+  }
+}
+
+@keyframes moveCardToCenterUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-200px);
+  }
+}
+
+@keyframes moveCardToCenterDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200px);
+  }
+}
+
+/* Cards that have moved to center */
+.card-slot.moving-to-center-up,
+.card-slot.moving-to-center-down {
+  animation-fill-mode: forwards;
+}
+
+/* Play Zone - Cards face each other in center */
+.play-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.played-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.played-card {
+  width: 120px;
+  height: 180px;
+  border: 3px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease-in-out;
+}
+
+.player2-played {
+  border-color: #ff6b6b;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+.player1-played {
+  border-color: #00ff00;
+  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+}
+
+.played-card:hover {
+  transform: scale(1.05);
+}
+
+.played-card .card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+/* Player 1 Controls */
+.player1-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  position: relative;
+  width: 100%;
+}
+
+/* Play Card Button */
+.play-card-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #00ff00;
+  background-color: rgba(0, 255, 0, 0.2);
+  color: white;
+  padding: 20px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.play-card-btn:hover {
+  background-color: rgba(0, 255, 0, 0.4);
+  transform: translate(-50%, -50%) translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+}
+
+/* Reset Button */
+.reset-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.2);
+  color: white;
+  padding: 20px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.reset-btn:hover {
+  background-color: rgba(255, 107, 107, 0.4);
+  transform: translate(-50%, -50%) translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Timer */
+.timer {
+  width: 175px;
+  height: 175px;
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-weight: bold;
+  background-color: rgba(139, 69, 19, 0.3);
+  margin: 0 auto;
+}
+
+/* Card Grid */
+.card-grid {
+  flex: 1;
+  border: 3px solid white;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  gap: 35px;
+  background-color: rgba(160, 82, 45, 0.2);
+}
+
+.grid-row {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+}
+
+.grid-card-slot {
+  width: 105px;
+  height: 158px;
+  border: 3px solid white;
+  background-color: transparent;
+}
+
+/* Resign Button */
+.resign-btn {
+  border: 3px solid white;
+  background-color: rgba(139, 69, 19, 0.3);
+  color: white;
+  padding: 26px 53px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+
+.resign-btn:hover {
+  background-color: rgba(160, 82, 45, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+  }
+  
+  .left-section {
+    border-right: none;
+    border-bottom: 3px solid white;
+  }
+  
+  .card-slot {
+    width: 95px;
+    height: 142px;
+  }
+  
+  .grid-card-slot {
+    width: 63px;
+    height: 95px;
+  }
+  
+  .player-name, .player-score {
+    padding: 18px 26px;
+    font-size: 28px;
+    min-width: 175px;
+  }
+  
+  .timer {
+    width: 140px;
+    height: 140px;
+    font-size: 35px;
+  }
+  
+  .play-card-btn, .reset-btn {
+    padding: 15px 30px;
+    font-size: 20px;
+  }
+  
+  .played-cards {
+    gap: 8px;
+  }
+  
+  .played-card {
+    width: 81px;
+    height: 122px;
+  }
+}
