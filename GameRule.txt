@@ -1,0 +1,19 @@
+Core Gameplay Mechanics:
+- Setup: A competitive match between two players, Player 1 vs Player 2
+- Dealing: Each player starts with a random hand of four cards from the following card: 2, 3, 4, 5, 6, 7, 8, and 10.
+- Card Reveal: Both players choose one card from their hand and reveal them simultaneously.
+
+Round Win Conditions: winner of the round is determined by these rules:
+- Rule 1 (Standard): If the bigger number is less than or equal to double the smaller number, the bigger number wins.
+- Rule 2 (Double): If the bigger number is greater than double the smaller number, the smaller number wins.
+
+Post-Round Drafting (Split)
+- Winner: The winner chooses one of the two played cards and move it to score zone, where the face value of the card is added to their score.
+- Loser: The card that was not selected by the winner is taken by the loser and added back into their hand.
+
+Important facts:
+- Card Flow: This means the winner's hand size decreases, while the loser's hand size stays the same.
+
+Game End and Victory:
+- Game Over: The game ends when one player runs out of cards in their hand after Split phase.
+- Determining the Winner: the player with the highest cumulative score is the final winner.
